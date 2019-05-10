@@ -30,6 +30,8 @@ Temporary Items
 .apdisk
 
 ### Python ###
+.idea/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -125,3 +127,6 @@ npm-debug.log
 yarn-error.log
 
 # End of https://www.gitignore.io/api/osx,sass,vuejs,python
+confidence
+vkauth.json
+vkauth1.json

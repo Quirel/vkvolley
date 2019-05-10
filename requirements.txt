@@ -1,1 +1,2 @@
+ipython==7.5.0
 pip-chill==0.1.8
