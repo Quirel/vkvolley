@@ -1,4 +1,5 @@
 import json
+from datetime import datetime as dt
 
 import vk_api
 
@@ -16,27 +17,32 @@ class VkWrapper:
         self.vk_session = vk_api.VkApi(token=self.vk_data["VK_USER_ACCESS_TOKEN"])
         self.vk = self.vk_session.get_api()
         self.user_id = self.vk.users.get()[0]['id']
-        self.message = None
+        self.message = {}
 
-    def get_wall(self):
+    def get_wall(self, group_id=None):
         """
+        :param group_id: string, vk group id
         :return: vk wall
         """
-        return self.vk.wall.get(owner_id=self.vk_data['VK_GROUP_ID'])
+        vk_group_id = group_id if group_id else self.vk_data['VK_GROUP_ID']
+        return self.vk.wall.get(owner_id=vk_group_id)
 
     def get_message(self):
         """
+        TODO: filter TODAY message
+        TODO: pass list of filter string to find message. E.g. ['Запись на субботу', 'Запись на четверг', 'Время игры']
         :return: specified message from wall
         """
         messages = self.get_wall()['items']
         message = [m for m in messages if not m.get('is_pinned', 0)][0]
-        self.message = message
-        return message
+        self.message['text'] = message['text']
+        self.message['date'] = dt.fromtimestamp(message['date']).date()
+        return self.message
 
     def comment_message(self, msg):
         """
         Write specified comment to message
-        Do nothing, if no message specified
+        TODO: Do nothing, if no message specified or return error code
         :param msg: string. Text of comment
         """
         if self.message:
