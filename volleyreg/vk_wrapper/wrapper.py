@@ -32,6 +32,8 @@ class VkWrapper:
         """
         :return: last not pinned message from wall
         """
+        if not self.wall:
+            self.get_wall()
         messages = self.wall['items']
         message = [m for m in messages if not m.get('is_pinned', 0)][0]
         self.message['id'] = message['id']
@@ -43,10 +45,10 @@ class VkWrapper:
     def comment_message(self, msg):
         """
         Write specified comment to message
-        TODO: Do nothing, if no message specified or return error code
+        TODO: Do nothing, if nomessage specified or return error code
         :param msg: string. Text of comment
         """
-        if self.message:
-            self.vk.wall.createComment(owner_id=self.message['owner_id'], post_id=self.message['id'], message=msg)
-        else:
-            pass
+        if not self.message:
+            self.get_message()
+        self.vk.wall.createComment(owner_id=self.message['owner_id'], post_id=self.message['id'], message=msg)
+        return True
