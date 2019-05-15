@@ -17,6 +17,7 @@ class VkWrapper:
         self.vk_session = vk_api.VkApi(token=self.vk_data["VK_USER_ACCESS_TOKEN"])
         self.vk = self.vk_session.get_api()
         self.user_id = self.vk.users.get()[0]['id']
+        self.wall = None
         self.message = {}
 
     def get_wall(self, group_id=None):
@@ -24,8 +25,8 @@ class VkWrapper:
         :param group_id: string, vk group id
         :return: vk wall
         """
-        vk_group_id = group_id if group_id else self.vk_data['VK_GROUP_ID']
-        return self.vk.wall.get(owner_id=vk_group_id)
+        vk_group_id = group_id if group_id else self.vk_data['VK_GROUP_ID_TEST']
+        self.wall = self.vk.wall.get(owner_id=vk_group_id)
 
     def get_message(self):
         """
@@ -33,8 +34,10 @@ class VkWrapper:
         TODO: pass list of filter string to find message. E.g. ['Запись на субботу', 'Запись на четверг', 'Время игры']
         :return: specified message from wall
         """
-        messages = self.get_wall()['items']
+        messages = self.wall['items']
         message = [m for m in messages if not m.get('is_pinned', 0)][0]
+        self.message['id'] = message['id']
+        self.message['owner_id'] = message['owner_id']
         self.message['text'] = message['text']
         self.message['date'] = dt.fromtimestamp(message['date']).date()
         return self.message
@@ -46,6 +49,6 @@ class VkWrapper:
         :param msg: string. Text of comment
         """
         if self.message:
-            self.vk.wall.createComment(owner_id=self.vk_data['VK_GROUP_ID'], post_id=self.message['id'], message=msg)
+            self.vk.wall.createComment(owner_id=self.message['owner_id'], post_id=self.message['id'], message=msg)
         else:
             pass
