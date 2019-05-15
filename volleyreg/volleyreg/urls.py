@@ -19,7 +19,7 @@ from django.urls import path
 from mainapp.tasks import register_player
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('', admin.site.urls),
 ]
 
 # run: manage.py process_tasks
