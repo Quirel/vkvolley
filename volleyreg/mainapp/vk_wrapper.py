@@ -25,7 +25,7 @@ class VkWrapper:
         :param group_id: string, vk group id
         :return: vk wall
         """
-        vk_group_id = group_id if group_id else self.vk_data['VK_GROUP_ID']
+        vk_group_id = group_id if group_id else self.vk_data['VK_GROUP_ID_TEST']
         self.wall = self.vk.wall.get(owner_id=vk_group_id)
 
     def get_message(self):

@@ -13,6 +13,7 @@ def register_player():
     """
     # players = Player.objects.filter(Q(register_4=True) | Q(register_6=True))
     players = None
+    current_time = dt.today().time()
     if dt.today().weekday() == 2:
         players = Player.objects.filter(register_4=True).filter(registered=False)
         print(len(players), 'players need register')
@@ -35,7 +36,6 @@ def register_player():
 
             # TODO: stop task from repeat today
         else:
-            current_time = dt.today().time()
             print('{}: no message found'.format(current_time))
     else:
-        print('No players want to register or wrong day.')
+        print('{}: no players want to register or wrong day'.format(current_time))

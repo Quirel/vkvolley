@@ -22,4 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 ]
 
-register_player(schedule=dt(2019, 5, 15, 3, 14, 0,), repeat=10)
+# run: manage.py process_tasks
+# dt(yyyy, m, d, H, M, S)
+# register_player(schedule=dt(2019, 5, 15, 9, 55, 0,), repeat=5)
