@@ -30,9 +30,7 @@ class VkWrapper:
 
     def get_message(self):
         """
-        TODO: filter TODAY message
-        TODO: pass list of filter string to find message. E.g. ['Запись на субботу', 'Запись на четверг', 'Время игры']
-        :return: specified message from wall
+        :return: last not pinned message from wall
         """
         messages = self.wall['items']
         message = [m for m in messages if not m.get('is_pinned', 0)][0]
