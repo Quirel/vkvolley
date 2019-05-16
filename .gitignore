@@ -128,4 +128,4 @@ yarn-error.log
 
 # End of https://www.gitignore.io/api/osx,sass,vuejs,python
 confidence
-vkauth.json
+test_auth.json

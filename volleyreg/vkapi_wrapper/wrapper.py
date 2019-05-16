@@ -5,28 +5,21 @@ import vk_api
 
 
 class VkWrapper:
-    def __init__(self, data_path='vkauth.json'):
-        """
-        :param data_path: string, path to json object with vk tokens (e.g. 'vkauth.json')
-        :sets vk_session: vk session authorization
-        :sets user_id: vk authorized user
-        :sets vk: vk api wrapper
-        """
-        with open(data_path, 'r') as f:
-            self.vk_data = json.load(f)
-        self.vk_session = vk_api.VkApi(token=self.vk_data["VK_USER_ACCESS_TOKEN"])
+    def __init__(self, app_keys):
+        self.access_token = app_keys.access_token
+        self.app_id = app_keys.app_id
+        self.group_id = app_keys.group_id
+        self.vk_session = vk_api.VkApi(token=self.access_token)
         self.vk = self.vk_session.get_api()
         self.user_id = self.vk.users.get()[0]['id']
         self.wall = None
         self.message = {}
 
-    def get_wall(self, group_id=None):
+    def get_wall(self):
         """
-        :param group_id: string, vk group id
         :return: vk wall
         """
-        vk_group_id = group_id if group_id else self.vk_data['VK_GROUP_ID_TEST']
-        self.wall = self.vk.wall.get(owner_id=vk_group_id)
+        self.wall = self.vk.wall.get(owner_id=self.group_id)
 
     def get_message(self):
         """

@@ -2,7 +2,7 @@ from datetime import datetime as dt
 # from django.db.models import Q
 from background_task import background
 from mainapp.models import Player
-from vk_wrapper.wrapper import VkWrapper
+from vkapi_wrapper.wrapper import VkWrapper
 
 
 @background()
