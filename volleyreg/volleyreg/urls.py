@@ -24,4 +24,6 @@ urlpatterns = [
 
 # run: manage.py process_tasks
 # dt(yyyy, m, d, H, M, S)
-# register_player(schedule=dt(2019, 5, 15, 9, 55, 0,), repeat=5)
+# TODO: schedule and repeat doesn't work
+# register_player(schedule=dt(2019, 5, 17, 9, 58, 0,), repeat=5)
+# register_player(verbose_name='register players test', schedule=dt(2019, 5, 17, 9, 46, 0))
