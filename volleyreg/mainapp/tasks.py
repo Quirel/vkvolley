@@ -7,7 +7,7 @@ from vkapi_wrapper.models import Keys
 
 
 @background()
-def register_player():
+def register_player(key_id):
     """
     TODO: full rework
     if message today and string im message.text
@@ -27,7 +27,7 @@ def register_player():
     #     print(len(players), 'players need register')
 
     # if players:
-    vk = VkWrapper(Keys.objects.get(id=1))
+    vk = VkWrapper(Keys.objects.get(id=key_id))
     # id=1 for testing, id=2 - real group
     msg = vk.get_message()
     if 'Запись на' in msg['text'] and 'Время игры' in msg['text'] and dt.today().date() == msg['date']:
