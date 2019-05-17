@@ -23,8 +23,7 @@ urlpatterns = [
 ]
 
 # run: manage.py process_tasks
-# dt(yyyy, m, d, H, M, S)
-# TODO: schedule and repeat doesn't work
 # key_id = 1 for testing, 2 for prod
-# register_player(key_id=1, schedule=dt(2019, 5, 17, 9, 58, 0,), repeat=5)
-# register_player(verbose_name='register players test', schedule=dt(2019, 5, 17, 9, 46, 0))
+# dt(yyyy, m, d, H, M, S)
+register_player(key_id=1, verbose_name='Task for testing', schedule=dt(2019, 5, 18, 1, 9, 0,),
+                repeat=5, repeat_until=dt(2019, 5, 18, 1, 10, 0))

@@ -131,3 +131,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 10240
+
+# Background Tasks
+BACKGROUND_TASK_RUN_ASYNC = False

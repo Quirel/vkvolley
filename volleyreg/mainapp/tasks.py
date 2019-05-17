@@ -17,16 +17,7 @@ def register_player(key_id):
     print('------------------------------')
     print('------------------------------')
     print('Task running: {}'.format(current_time))
-    # players = Player.objects.filter(Q(register_4=True) | Q(register_6=True))
     players = Player.objects.all()
-    # if dt.today().weekday() == 2:
-    #     players = Player.objects.filter(register_4=True).filter(registered=False)
-    #     print(len(players), 'players need register')
-    # elif dt.today().weekday() == 4:
-    #     players = Player.objects.filter(register_6=True).filter(registered=False)
-    #     print(len(players), 'players need register')
-
-    # if players:
     vk = VkWrapper(Keys.objects.get(id=key_id))
     # id=1 for testing, id=2 - real group
     msg = vk.get_message()
@@ -42,5 +33,3 @@ def register_player(key_id):
         # TODO: stop task from repeat today
     else:
         print('{}: no message found'.format(current_time))
-    # else:
-    #     print('{}: no players want to register or wrong day'.format(current_time))
