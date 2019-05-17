@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.urls import path
 from mainapp.tasks import register_player
 
+from mainapp.models import Player
+
 urlpatterns = [
     path('', admin.site.urls),
 ]
@@ -25,5 +27,9 @@ urlpatterns = [
 # run: manage.py process_tasks
 # key_id = 1 for testing, 2 for prod
 # dt(yyyy, m, d, H, M, S)
-register_player(key_id=1, verbose_name='Task for testing', schedule=dt(2019, 5, 18, 1, 9, 0,),
-                repeat=5, repeat_until=dt(2019, 5, 18, 1, 10, 0))
+
+player = Player.objects.get(pk=1)
+date = dt(player.date.year, player.date.month, player.date.day-1, 9, 55)
+to_date = dt(player.date.year, player.date.month, player.date.day-1, 10, 30)
+register_player(key_id=1, verbose_name='Task for testing', schedule=date,
+                repeat=5, repeat_until=to_date)
