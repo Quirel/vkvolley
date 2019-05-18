@@ -28,8 +28,7 @@ urlpatterns = [
 # key_id = 1 for testing, 2 for prod
 # dt(yyyy, m, d, H, M, S)
 
-player = Player.objects.get(pk=1)
-date = dt(player.date.year, player.date.month, player.date.day-1, 9, 55)
-to_date = dt(player.date.year, player.date.month, player.date.day-1, 10, 30)
-register_player(key_id=1, verbose_name='Task for testing', schedule=date,
-                repeat=5, repeat_until=to_date)
+# player = Player.objects.get(pk=1)
+# date = dt(player.date.year, player.date.month, player.date.day-1, 9, 55)
+# to_date = dt(player.date.year, player.date.month, player.date.day-1, 10, 30)
+# register_player(key_id=1, verbose_name='Task for testing', schedule=date, repeat=5, repeat_until=to_date)
