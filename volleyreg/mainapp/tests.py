@@ -1,5 +1,6 @@
 from datetime import datetime as dt
 
+from django.core.management import call_command
 from django.test import TestCase
 
 from mainapp.models import Player
@@ -7,6 +8,7 @@ from mainapp.models import Player
 
 class PlayerTests(TestCase):
     def setUp(self):
+        call_command('flush', '--noinput')
         Player.objects.create(name="Ilia", date=dt.today().date())
 
     def test_name_content(self):
