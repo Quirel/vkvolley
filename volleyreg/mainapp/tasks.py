@@ -1,6 +1,7 @@
 from datetime import datetime as dt
 # from django.db.models import Q
 from background_task import background
+
 from mainapp.models import Player
 from vkapi_wrapper.wrapper import VkWrapper
 from vkapi_wrapper.models import Keys
@@ -33,3 +34,12 @@ def register_player(key_id):
         # TODO: stop task from repeat today
     else:
         print('{}: no message found'.format(current_time))
+
+
+# @background()
+# def task_for_test(name, title='Testing'):
+#     current_time = dt.today().time()
+#     key = Keys.objects.get(title=title)
+#     vk = VkWrapper(key)
+#     vk.get_message()
+#     vk.comment_message('Testing. Name: {}, time: {}'.format(name, current_time))
