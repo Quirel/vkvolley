@@ -17,3 +17,12 @@
 **Django app** - веб оболочка для создания списка пользователей для регистрации
 
 **Python VK script** - Сканирует группу в VK на предмет нужного сообщения на стене -> получает пользователей из бд и регистрирует их через vk в заданное время
+
+----
+
+```
+sudo apt install redis-server
+# supervised systemd in redis.conf
+sudo systemctl restart redis.service
+pip install -r requirements.txt
+```

@@ -13,10 +13,8 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from datetime import datetime as dt
 from django.contrib import admin
 from django.urls import path
-from mainapp.tasks import register_player
 
 from mainapp.models import Player
 

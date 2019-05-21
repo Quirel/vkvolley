@@ -136,5 +136,10 @@ STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
 
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 10240
 
-# Background Tasks
-BACKGROUND_TASK_RUN_ASYNC = False
+# Redis settings
+REDIS_HOST = 'localhost'
+REDIS_PORT = '6379'
+# REDIS_URL = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
+BROKER_URL = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
+BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
+CELERY_RESULT_BACKEND = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
