@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'mainapp.apps.MainappConfig',
     'vkapi_wrapper',
-    'background_task',
+    'django_celery_beat',
 ]
 
 MIDDLEWARE = [
