@@ -29,7 +29,7 @@ def register_player(player_pk, key_title):
         key = Keys.objects.get(title=key_title)
         vk = VkWrapper(key)
         vk.get_message()
-        vk.comment_message('Testing. Name: {}, time: {}'.format(player.name, current_time))
+        vk.comment_message('+ {}'.format(player.name))
         logger.info('Player: {}, registered, {}'.format(player, current_time))
         player.toggle_registered()
     else:
@@ -37,35 +37,28 @@ def register_player(player_pk, key_title):
 
 
 @celery.task
-def register_task_dispatcher(key_title):
+def register_task_dispatcher(key_title='Testing'):
     """
-    TODO: if no players need register -> pass
-    :param key_title:
-    :return:
+    :param key_title: title of Keys object
     """
-    players = Player.objects.all()
-    key = Keys.objects.get(title=key_title)
-    vk = VkWrapper(key)
-    stop = False
-    while not stop:
-        vk.get_wall()
-        msg = vk.get_message()
-        if 'Запись на' in msg['text'] and 'Время игры' in msg['text'] and dt.today().date() == msg['date']:
-            logger.info('Message found')
-            task_list = [register_player.s(p.pk, key_title) for p in players]
-            group(task_list).delay()
-            stop = True
-            logger.info('Tasks dispatched')
-        else:
-            time.sleep(5)
-            logger.info('No message found')
+    players = Player.objects.filter(registered=False)
+    if players:
+        logger.info('Players to register: {}'.format(players))
+        key = Keys.objects.get(title=key_title)
+        vk = VkWrapper(key)
+        stop = False
+        while not stop:
+            vk.get_wall()
+            msg = vk.get_message()
+            if 'Запись на' in msg['text'] and 'Время игры' in msg['text'] and dt.today().date() == msg['date']:
+                logger.info('Message found')
+                task_list = [register_player.s(p.pk, key_title) for p in players]
+                group(task_list).delay()
+                stop = True
+                logger.info('Tasks dispatched')
+            else:
+                time.sleep(5)
+                logger.info('No message found')
+    else:
+        logger.info('No players need register')
 
-
-# @celery.on_after_configure.connect
-# def setup_periodic_tasks(sender, **kwargs):
-#     # Executes every Monday morning at 7:30 a.m.
-#     activation = RegisterTask.objects.all().last().activation_time
-#     sender.add_periodic_task(
-#         crontab(hour=7, minute=30, day_of_week=1),
-#         register_task_dispatcher.s(''),
-#     )
