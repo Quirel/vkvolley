@@ -13,15 +13,20 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from datetime import datetime as dt
 from django.contrib import admin
 from django.urls import path
-from mainapp.tasks import register_player
+
+from mainapp.models import Player
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('', admin.site.urls),
 ]
 
 # run: manage.py process_tasks
+# key_id = 1 for testing, 2 for prod
 # dt(yyyy, m, d, H, M, S)
-# register_player(schedule=dt(2019, 5, 15, 9, 55, 0,), repeat=5)
+
+# player = Player.objects.get(pk=1)
+# date = dt(player.date.year, player.date.month, player.date.day-1, 9, 55)
+# to_date = dt(player.date.year, player.date.month, player.date.day-1, 10, 30)
+# register_player(key_id=1, verbose_name='Task for testing', schedule=date, repeat=5, repeat_until=to_date)

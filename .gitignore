@@ -127,5 +127,6 @@ npm-debug.log
 yarn-error.log
 
 # End of https://www.gitignore.io/api/osx,sass,vuejs,python
-confidence
-vkauth.json
+confidence.json
+test_auth.json
+dump_*.json
