@@ -7,3 +7,4 @@ class MainappConfig(AppConfig):
 
     def ready(self):
         import mainapp.signals.handlers
+        import mainapp.task

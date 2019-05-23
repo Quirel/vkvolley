@@ -3,10 +3,9 @@ import time
 
 from volleyreg.celery import app as celery
 from celery.utils.log import get_task_logger
-from celery import group
-# from celery.schedules import crontab
+from celery import group, shared_task
 
-from mainapp.models import Player, RegisterTask
+from mainapp.models import Player
 from vkapi_wrapper.models import Keys
 from vkapi_wrapper.wrapper import VkWrapper
 

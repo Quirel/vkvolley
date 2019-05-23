@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from mainapp.models import Player, RegisterTask
+from mainapp.models import Player
 
 admin.site.site_header = 'VolleyReg administration'
 
@@ -10,8 +10,3 @@ class PlayerAdmin(admin.ModelAdmin):
     list_display = ['id', 'name', 'registered']
     list_display_links = ['name']
     ordering = ('id',)
-
-
-@admin.register(RegisterTask)
-class RegisterTaskAdmin(admin.ModelAdmin):
-    pass
